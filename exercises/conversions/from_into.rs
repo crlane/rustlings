@@ -35,10 +35,27 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of Person
 // Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
-
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        // TODO: I hate how nested this is
+        if !s.is_empty() {
+            let mut fields = s.split(",");
+            if let Some(name) = fields.next() {
+                if !name.is_empty() {
+                    if let Some(age) = fields.next() {
+                        if let Ok(a) = age.parse::<usize>() {
+                            if fields.next().is_none() {
+                                return Person {
+                                    age: a,
+                                    name: name.to_owned(),
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        Person::default()
     }
 }
 

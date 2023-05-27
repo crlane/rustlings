@@ -35,7 +35,7 @@ pub fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
 // ["hello", " ", "world"] -> "Hello World"
 pub fn capitalize_words_string(words: &[&str]) -> String {
     capitalize_words_vector(words)
-        .into_iter() // TODO: why does this only work with into_iter?
+        .into_iter() // TODO: why does this only work with into_iter? It has something to do with references and borrowing
         .filter(|w| !w.is_empty())
         .collect::<Vec<_>>()
         .join(" ")
